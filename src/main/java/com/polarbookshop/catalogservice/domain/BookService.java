@@ -16,7 +16,7 @@ public class BookService {
     }
 
     public Book viewBookDetails(String isbn) {
-        return bookRepository.findById(isbn).orElseThrow(() -> new BookNotFoundException(isbn);
+        return bookRepository.findByIsbn(isbn).orElseThrow(() -> new BookNotFoundException(isbn);
     }
 
     public Book addBookToCatalog(Book book) {
@@ -30,7 +30,7 @@ public class BookService {
         if (!bookRepository.existsByIsbn(isbn)) {
             throw new BookNotFoundException(isbn);
         }
-        bookRepository.deleteById(isbn);
+        bookRepository.deleteByIsbn(isbn);
     }
 
     public Book updateBookDetails(String isbn, Book book) {
