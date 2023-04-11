@@ -21,7 +21,7 @@ public class BookController {
 
     // get one book by isbn
     @GetMapping("/books/{isbn}")
-    public Book getBookByIsbn(String isbn) {
+    public Book getBookByIsbn(@PathVariable String isbn) {
         return bookService.viewBookDetails(isbn);
     }
 
@@ -32,6 +32,16 @@ public class BookController {
         return bookService.addBookToCatalog(book);
     }
 
+    // add multiple books to catalog
+    @PostMapping("/books/bulk")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Iterable<Book> addBooks(@RequestBody Iterable<Book> books) {
+        for (Book book : books) {
+            bookService.addBookToCatalog(book);
+        }
+        return books;
+    }
+
     // delete book from catalog
     @DeleteMapping("/books/{isbn}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -39,6 +49,7 @@ public class BookController {
         bookService.removeBookFromCatalog(isbn);
     }
 
+    // update book details
     @PutMapping("/books/{isbn}")
     public Book updateBook(@PathVariable String isbn, @RequestBody Book book) {
         return bookService.updateBookDetails(isbn, book);
