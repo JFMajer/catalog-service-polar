@@ -2,6 +2,7 @@ package com.polarbookshop.catalogservice.controllers;
 
 import com.polarbookshop.catalogservice.domain.Book;
 import com.polarbookshop.catalogservice.domain.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,14 +29,14 @@ public class BookController {
     // add new book to catalog
     @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addBook(@RequestBody Book book) {
+    public Book addBook(@Valid @RequestBody Book book) {
         return bookService.addBookToCatalog(book);
     }
 
     // add multiple books to catalog
     @PostMapping("/books/bulk")
     @ResponseStatus(HttpStatus.CREATED)
-    public Iterable<Book> addBooks(@RequestBody Iterable<Book> books) {
+    public Iterable<Book> addBooks(@Valid @RequestBody Iterable<Book> books) {
         for (Book book : books) {
             bookService.addBookToCatalog(book);
         }
@@ -51,7 +52,7 @@ public class BookController {
 
     // update book details
     @PutMapping("/books/{isbn}")
-    public Book updateBook(@PathVariable String isbn, @RequestBody Book book) {
+    public Book updateBook(@PathVariable String isbn, @Valid @RequestBody Book book) {
         return bookService.updateBookDetails(isbn, book);
     }
 
