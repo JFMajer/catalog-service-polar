@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'corretto'
+          distribution: 'temurin'
       - name: build with Gradle
         run: |
           chmod +x gradlew
