@@ -1,0 +1,48 @@
+#############################################################
+# This workflow will build a Java project with Gradle
+# Docker image will be created and pushed to image registry
+#############################################################
+
+
+#############################################################
+# Specifies when workflow will run
+#############################################################
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+#############################################################
+# Specifies jobs to run
+#############################################################
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+      - name: build with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew build
+      - name: code vulnerability scan
+        uses: anchore/scan-action@v3
+        id: scan-anchore
+        with:
+          path: "${ github.workspace }"
+          fail-build: false
+          severity-cutoff: high
+          acs-report-enable: true
