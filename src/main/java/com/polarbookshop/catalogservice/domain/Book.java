@@ -3,8 +3,9 @@ package com.polarbookshop.catalogservice.domain;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Version;
+import org.springframework.data.annotation.*;
+
+import java.time.Instant;
 
 public record Book(
 
@@ -24,6 +25,12 @@ public record Book(
         @Positive(message = "Price must be positive.")
         double price,
 
+        @CreatedDate
+        Instant createdDate,
+
+        @LastModifiedDate
+        Instant lastModifiedDate,
+
         @Version
         int version
 ) {
@@ -33,6 +40,6 @@ public record Book(
                 String author,
                 double price
         ) {
-                return new Book(null, isbn, title, author, price, 0);
+                return new Book(null, isbn, title, author, price, null, null, 0);
         }
 }
