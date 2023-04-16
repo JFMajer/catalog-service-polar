@@ -7,5 +7,8 @@ Work in progress, database is running as container postgres.
 Dockerfile will be replaced by buildpack.
 
 To generate container image:
-    ./gradlew bootBuildImage --imageName=catalog-service:0.1
+    ./gradlew bootBuildImage --imageName=catalog-service
+
+To run app with database:
+    docker-compose up
     
