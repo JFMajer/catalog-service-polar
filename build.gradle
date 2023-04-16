@@ -29,8 +29,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.5'
 	implementation 'org.yaml:snakeyaml:2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.0.5'
-	runtimeOnly('org.postgresql:postgresql:42.2.24')
+	runtimeOnly('org.postgresql:postgresql:42.6.0')
 	testImplementation 'org.testcontainers:postgresql:1.18.0'
+	implementation 'org.flywaydb:flyway-core:9.16.3'
 }
 
 tasks.named('test') {
