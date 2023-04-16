@@ -39,11 +39,11 @@ tasks.named('test') {
 }
 
 tasks.named("jar") {
-	archiveClassifier = ''
-}
-
-jar {
 	manifest {
-		attributes 'Main-Class': 'com.polarbookshop.catalogservice.CatalogServiceApplication'
+		attributes(
+				"Implementation-Title": project.name,
+				"Implementation-Version": project.version,
+				"Main-Class": "com.polarbookshop.catalogservice.CatalogServiceApplication"
+		)
 	}
 }
