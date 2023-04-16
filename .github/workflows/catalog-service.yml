@@ -53,7 +53,7 @@ jobs:
         with:
           sarif_file: ${{ steps.scan-anchore.outputs.sarif }}
       - name: build docker image
-        run: docker build . --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
       - name: login to github package registry
         run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u $ --password-stdin
       - name: Push image
