@@ -62,6 +62,7 @@ jobs:
           fail-build: true
           severity-cutoff: high
       - name: upload image scan results
+        if: always()
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.scan-image.outputs.sarif }}
