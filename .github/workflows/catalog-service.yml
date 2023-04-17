@@ -18,6 +18,7 @@ on:
 
 env:
   IMAGE_NAME: catalog-service
+  TAG: $(echo "${{ github.sha }}" | cut -c1-7)
 
 #############################################################
 # Specifies jobs to run
@@ -53,7 +54,7 @@ jobs:
         with:
           sarif_file: ${{ steps.scan-build.outputs.sarif }}
       - name: build docker image
-        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME/$TAG
       - name: run trivy vulnerability scan
         uses: aquasecurity/trivy-action@master
         with:
@@ -70,13 +71,10 @@ jobs:
       - name: Push image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Create tag based on short commit sha
-          TAG=$(echo "${{ github.sha }}" | cut -c1-7)
           # Strip "v" prefix from tag name
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           echo IMAGE_ID=$IMAGE_ID
