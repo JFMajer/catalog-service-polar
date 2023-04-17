@@ -81,5 +81,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
+          echo TAG=$TAG
+          echo IMAGE_NAME=$IMAGE_NAME
           docker tag $IMAGE_NAME $IMAGE_ID:$TAG
           docker push $IMAGE_ID:$TAG
