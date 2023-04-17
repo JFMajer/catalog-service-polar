@@ -54,11 +54,11 @@ jobs:
         with:
           sarif_file: ${{ steps.scan-build.outputs.sarif }}
       - name: build docker image
-        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME/$TAG
+        run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
       - name: run trivy vulnerability scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: $IMAGE_NAME
+          image-ref: $IMAGE_NAME/latest
           format: 'sarif'
           output: 'trivy-results.sarif'
       - name: upload trivy scan SARIF report
