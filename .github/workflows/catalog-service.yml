@@ -60,7 +60,7 @@ jobs:
       - name: run trivy vulnerability scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: $IMAGE_NAME:latest
+          image-ref: catalog-service:latest
           format: 'sarif'
           output: 'trivy-results.sarif'
       - name: upload trivy scan SARIF report
