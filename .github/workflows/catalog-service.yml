@@ -54,18 +54,17 @@ jobs:
           sarif_file: ${{ steps.scan-build.outputs.sarif }}
       - name: build docker image
         run: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
-      - name: scan the image
-        uses: anchore/scan-action@v3
-        id: scan-image
+      - name: run trivy vulnerability scan
+        uses: aquasecurity/trivy-action@master
         with:
-          image: $IMAGE_NAME
-          fail-build: false
-          severity-cutoff: high
-      - name: upload image scan results
-        if: always()
+          image-ref: $IMAGE_NAME
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: upload trivy scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
+        if: always()
         with:
-          sarif_file: ${{ steps.scan-image.outputs.sarif }}
+          sarif_file: trivy-results.sarif
       - name: login to github package registry
         run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u $ --password-stdin
       - name: Push image
