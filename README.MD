@@ -9,6 +9,5 @@ Dockerfile will be replaced by buildpack.
 To generate container image:
     ./gradlew bootBuildImage --imageName=catalog-service
 
-To run app with database:
-    docker-compose up
+Deployment configuration (Docker Compose, sql init scripts and eventually k8s files) have been moved to: https://github.com/JFMajer/polar-deployment
     
