@@ -32,7 +32,7 @@ dependencies {
 	runtimeOnly('org.postgresql:postgresql:42.6.0')
 	testImplementation 'org.testcontainers:postgresql:1.18.0'
 	implementation 'org.flywaydb:flyway-core:9.16.3'
-	implementation 'org.springframework:spring-core:6.0.7'
+	implementation 'org.springframework:spring-core:6.0.8'
 }
 
 tasks.named('test') {
