@@ -32,6 +32,7 @@ dependencies {
 	runtimeOnly('org.postgresql:postgresql:42.6.0')
 	testImplementation 'org.testcontainers:postgresql:1.18.0'
 	implementation 'org.flywaydb:flyway-core:9.16.3'
+	implementation 'org.springframework:spring-core:6.0.7'
 }
 
 tasks.named('test') {
@@ -54,5 +55,3 @@ bootBuildImage {
 			"BP_JVM_VERSION": "17.*"
 	]
 }
-
-ext['spring-framework.version'] = '6.0.7'
