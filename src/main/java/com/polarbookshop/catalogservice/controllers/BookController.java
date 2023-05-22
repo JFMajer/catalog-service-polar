@@ -29,6 +29,7 @@ public class BookController {
     // get one book by isbn
     @GetMapping("/books/{isbn}")
     public Book getBookByIsbn(@PathVariable String isbn) {
+        log.info("Fetching book with isbn {} from the catalog.", isbn);
         return bookService.viewBookDetails(isbn);
     }
 
@@ -36,6 +37,7 @@ public class BookController {
     @PostMapping("/books")
     @ResponseStatus(HttpStatus.CREATED)
     public Book addBook(@Valid @RequestBody Book book) {
+        log.info("Adding a new book to the catalog with ISBN {}", book.isbn());
         return bookService.addBookToCatalog(book);
     }
 
